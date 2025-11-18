@@ -6,6 +6,8 @@ public class GameManager : MonoBehaviour
 {
     public static bool _paused;
     public GameObject PauseMenu;
+    public static int lives = 5;
+    public static int Score = 0;
 
 
     // Start is called before the first frame update
@@ -37,6 +39,18 @@ public class GameManager : MonoBehaviour
                 _paused = false;
             }
         }
-            
+        
+    }
+
+    public void SubtractLife()
+    {
+        lives--;
+        if (lives == 0)
+        {
+            //Game Over
+            Debug.Log("Game Over.");
+        }
+
+
     }
 }

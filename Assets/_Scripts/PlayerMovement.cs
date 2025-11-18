@@ -44,6 +44,18 @@ public class PlayerMovement : MonoBehaviour
  
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.transform.CompareTag("Enemy"))
+        {
+            //Remove one life
+
+            //Bounce back player
+
+
+        }
+    }
+
     private bool IsGrounded()
     {
          return groundCollider.IsTouchingLayers(LayerMask.GetMask("Ground"));
