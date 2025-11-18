@@ -6,7 +6,7 @@ public class GameManager : MonoBehaviour
 {
     public static bool _paused;
     public GameObject PauseMenu;
-    public static int lives = 5;
+    public static int lives = 2;
     public static int Score = 0;
 
 
@@ -42,13 +42,13 @@ public class GameManager : MonoBehaviour
         
     }
 
-    public void SubtractLife()
+    public static void SubtractLife() //static methods can only mess with static variables
     {
         lives--;
         if (lives == 0)
         {
             //Game Over
-            Debug.Log("Game Over.");
+            Debug.Log("Game Over!");
         }
 
 
