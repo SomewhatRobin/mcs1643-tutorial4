@@ -8,13 +8,15 @@ public class GameManager : MonoBehaviour
     public GameObject PauseMenu;
     public static int lives = 2;
     public static int Score = 0;
+    public static bool _gameOver = false;
 
+    public static int livesPerGame = 5;
 
     // Start is called before the first frame update
     void Start()
     {
         PauseMenu.SetActive(false);
-        _paused = false;
+        StartGame();
     }
 
     // Update is called once per frame
@@ -42,12 +44,23 @@ public class GameManager : MonoBehaviour
         
     }
 
+    public static void StartGame()
+    {
+        Score = 0;
+        lives = livesPerGame;
+        _gameOver = false;
+        _paused = false;
+    }
+
     public static void SubtractLife() //static methods can only mess with static variables
     {
         lives--;
+        Debug.Log($"Hit Enemy! Lives Left: {lives}");
+
         if (lives == 0)
         {
             //Game Over
+            _gameOver = true;
             Debug.Log("Game Over!");
         }
 

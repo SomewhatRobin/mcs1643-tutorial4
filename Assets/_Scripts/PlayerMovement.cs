@@ -26,6 +26,9 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        if (GameManager._gameOver)  return;
+
         if (Input.GetKey(KeyCode.LeftArrow))
         {
             transform.position += Vector3.left * speed * Time.deltaTime;
@@ -57,15 +60,29 @@ public class PlayerMovement : MonoBehaviour
             Vector2 contactPoint = collision.GetContact(0).point;
 
             //Takes the center, //removes y difference, creates vector of differnce between contact point and object's center
-            //myCenter.y = contactPoint.y;
-            Vector2 forceVector = contactPoint - myCenter;
-
+            myCenter.y = contactPoint.y;
+            Vector2 forceVector =  myCenter - contactPoint;
+            forceVector.y += 1;
             //Tells the object in script what other object hit that in-script object
             //GameObject.ball = collision.gameObject;
 
-            Rigidbody2D rb2 = collision.rigidbody;
-            rb2.AddForce(forceVector * enBumpForce, ForceMode2D.Impulse);
+           //Rigidbody2D rb2 = collision.rigidbody;
+            rb.AddForce(forceVector * enBumpForce, ForceMode2D.Impulse);
 
+
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.transform.CompareTag("Enemy"))
+        {
+            //add points for Enemy
+            GameManager.Score += 100;
+            Debug.Log($"Killed Enemy! Score is now {GameManager.Score}");
+
+            //Destroy the enemy
+            Destroy(collision.gameObject);
 
         }
     }
