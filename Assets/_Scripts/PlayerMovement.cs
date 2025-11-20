@@ -13,6 +13,9 @@ public class PlayerMovement : MonoBehaviour
 
     private Rigidbody2D rb;
     private const float gravity = 2.0f;
+    private Animator animator;
+
+    private bool idle, walking, jumping;
 
     // Improvements to consider:
     // - Double jump
@@ -22,6 +25,8 @@ public class PlayerMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         rb.gravityScale = gravity;
+        animator = GetComponent<Animator>();
+        idle = false;
     }
 
     // Update is called once per frame
@@ -33,32 +38,60 @@ public class PlayerMovement : MonoBehaviour
         Vector3 vel = rb.velocity;
         if (Input.GetKey(KeyCode.LeftArrow))
         {
+            
 
             if (vel.x > -1 * speed)
             {
                 vel.x -= deltaSpeed * Time.deltaTime;
             }
             //transform.position += Vector3.left * speed * Time.deltaTime;
-           
+
+            if (!walking)
+            {
+                animator.Play("Walk");
+                walking = true;
+            }
+
+            idle = false;
         }
 
         else if (Input.GetKey(KeyCode.RightArrow))
         {
+            
+
             if (vel.x < speed)
             {
                 vel.x += deltaSpeed * Time.deltaTime;
             }
+
+
+            if (!walking)
+            {
+                animator.Play("Walk");
+                walking = true;
+            }
+
+            idle = false;
         }
 
         else
         {
-            vel.x = 0;        
+          
+            vel.x = 0;
+            if (!idle)
+            {
+                idle = true;
+                animator.Play("Idle");
+                walking = false;
+            }
+           
         }
             rb.velocity = vel;
 
         if (Input.GetKeyDown(KeyCode.Space) && IsGrounded())
         {
             rb.AddForce(Vector3.up * jumpForce, ForceMode2D.Impulse);
+            animator.Play("Jump");
         }
 
  
@@ -66,6 +99,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        if (collision.transform.CompareTag("Ground"))
+        {
+            //animator.Play("Idle");
+        }
+
         if (collision.transform.CompareTag("Enemy"))
         {
             //Remove one life
