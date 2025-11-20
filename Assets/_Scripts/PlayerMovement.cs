@@ -6,6 +6,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     public float speed = 5.0f;
+    public float deltaSpeed = 3.0f;
     public float jumpForce = 12.0f;
     public float enBumpForce = 3.0f;
     public BoxCollider2D groundCollider;
@@ -29,16 +30,23 @@ public class PlayerMovement : MonoBehaviour
 
         if (GameManager._gameOver)  return;
 
+        Vector3 vel = rb.velocity;
         if (Input.GetKey(KeyCode.LeftArrow))
         {
-            transform.position += Vector3.left * speed * Time.deltaTime;
+            //transform.position += Vector3.left * speed * Time.deltaTime;
+            vel.x -= deltaSpeed * Time.deltaTime;
         }
 
-        if (Input.GetKey(KeyCode.RightArrow))
+        else if (Input.GetKey(KeyCode.RightArrow))
         {
-            transform.position += Vector3.right * speed * Time.deltaTime;
+            vel.x += deltaSpeed * Time.deltaTime;
         }
 
+        else
+        {
+            vel.x = 0;        
+        }
+            rb.velocity = vel;
 
         if (Input.GetKeyDown(KeyCode.Space) && IsGrounded())
         {

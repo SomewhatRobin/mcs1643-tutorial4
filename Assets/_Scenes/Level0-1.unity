@@ -418,7 +418,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!156049354 &308151425
 Grid:
@@ -1357,6 +1357,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
+  deltaSpeed: 3
   jumpForce: 12
   enBumpForce: 3
   groundCollider: {fileID: 861031409}
@@ -1861,7 +1862,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1194500484
 Transform:
@@ -6591,7 +6592,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1518921644
 Transform:
@@ -7198,7 +7199,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1872700207
 Transform:
@@ -7857,6 +7858,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy1Parent
       objectReference: {fileID: 0}
+    - target: {fileID: 245448751862251122, guid: deb7cb3635da4a94980213a63bb12cdc, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 1847828102768893174, guid: deb7cb3635da4a94980213a63bb12cdc, type: 3}
       propertyPath: m_Name
       value: Enemy1
@@ -8316,6 +8321,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
+  deltaSpeed: 3
   jumpForce: 12
   enBumpForce: 30.5
   groundCollider: {fileID: 2105436096}
