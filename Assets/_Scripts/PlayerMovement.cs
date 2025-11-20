@@ -33,13 +33,21 @@ public class PlayerMovement : MonoBehaviour
         Vector3 vel = rb.velocity;
         if (Input.GetKey(KeyCode.LeftArrow))
         {
+
+            if (vel.x > -1 * speed)
+            {
+                vel.x -= deltaSpeed * Time.deltaTime;
+            }
             //transform.position += Vector3.left * speed * Time.deltaTime;
-            vel.x -= deltaSpeed * Time.deltaTime;
+           
         }
 
         else if (Input.GetKey(KeyCode.RightArrow))
         {
-            vel.x += deltaSpeed * Time.deltaTime;
+            if (vel.x < speed)
+            {
+                vel.x += deltaSpeed * Time.deltaTime;
+            }
         }
 
         else
