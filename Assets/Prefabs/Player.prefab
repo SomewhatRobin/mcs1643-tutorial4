@@ -218,7 +218,7 @@ MonoBehaviour:
   speed: 9
   deltaSpeed: 4.32
   jumpForce: 12
-  enBumpForce: 30.5
+  enBumpForce: 15
   groundCollider: {fileID: 920647021669297784}
   ears: {fileID: 9176527037455306784}
   shout: {fileID: 7132189177767659134}
@@ -298,7 +298,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 09fb2deffbbdb9d4eb92d2a49b933402, type: 3}
+  m_audioClip: {fileID: 8300000, guid: b3198ef2310127041a309ff43a082d51, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -426,7 +426,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 7251fdb64c3adb84daa364883302e356, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 7d2a2562edeea344da40a900524d139e, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -563,7 +563,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 3cf624bd07d9a8a448e14d93a5d6cf73, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 58bb5aedc0a101e4992929d0ad54243e, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1

@@ -125,6 +125,11 @@ public class PlayerMovement : MonoBehaviour
             walking = false;
         }
 
+        if (transform.position.y < -10)
+        {
+            transform.position = new Vector3(-2, 5, 0);
+            GameManager.SubtractLife();
+        }
  
     }
 
