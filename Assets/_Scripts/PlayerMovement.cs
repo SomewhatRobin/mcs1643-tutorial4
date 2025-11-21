@@ -11,11 +11,19 @@ public class PlayerMovement : MonoBehaviour
     public float enBumpForce = 3.0f;
     public BoxCollider2D groundCollider;
 
+    public GameObject ears;
+    public GameObject shout;
+
     private Rigidbody2D rb;
     private const float gravity = 2.0f;
     private Animator animator;
+    private SpriteRenderer spriteRenderer;
 
     private bool idle, walking, jumping;
+
+    private AudioSource audioSrc;
+    private AudioSource audioSrc2;
+    private AudioSource audioSrc3;
 
     // Improvements to consider:
     // - Double jump
@@ -27,6 +35,11 @@ public class PlayerMovement : MonoBehaviour
         rb.gravityScale = gravity;
         animator = GetComponent<Animator>();
         idle = false;
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        jumping = false;
+        audioSrc = GetComponent<AudioSource>();
+        audioSrc2 = ears.GetComponentInChildren<AudioSource>();
+        audioSrc3 = shout.GetComponentInChildren<AudioSource>();
     }
 
     // Update is called once per frame
@@ -38,7 +51,7 @@ public class PlayerMovement : MonoBehaviour
         Vector3 vel = rb.velocity;
         if (Input.GetKey(KeyCode.LeftArrow))
         {
-            
+            spriteRenderer.flipX = true;
 
             if (vel.x > -1 * speed)
             {
@@ -46,18 +59,22 @@ public class PlayerMovement : MonoBehaviour
             }
             //transform.position += Vector3.left * speed * Time.deltaTime;
 
-            if (!walking)
+            if (!walking && !Input.GetKey(KeyCode.Space))
             {
                 animator.Play("Walk");
                 walking = true;
             }
 
             idle = false;
+            if (!Input.GetKey(KeyCode.Space))
+            {
+                jumping = false;
+            }
         }
 
         else if (Input.GetKey(KeyCode.RightArrow))
         {
-            
+            spriteRenderer.flipX = false;
 
             if (vel.x < speed)
             {
@@ -65,20 +82,26 @@ public class PlayerMovement : MonoBehaviour
             }
 
 
-            if (!walking)
+            if (!walking && !Input.GetKey(KeyCode.Space))
             {
                 animator.Play("Walk");
                 walking = true;
             }
 
             idle = false;
+
+            if (!Input.GetKey(KeyCode.Space))
+            {
+                jumping = false;
+            }
+
         }
 
         else
         {
           
             vel.x = 0;
-            if (!idle)
+            if (!idle && IsGrounded() && !jumping)
             {
                 idle = true;
                 animator.Play("Idle");
@@ -91,7 +114,15 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && IsGrounded())
         {
             rb.AddForce(Vector3.up * jumpForce, ForceMode2D.Impulse);
-            animator.Play("Jump");
+            if (!jumping)
+            {
+                //Boing sound
+                audioSrc.Play();
+                animator.Play("Jump");
+                jumping = true;
+            }
+            idle = false;
+            walking = false;
         }
 
  
@@ -101,6 +132,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (collision.transform.CompareTag("Ground"))
         {
+            
             //animator.Play("Idle");
         }
 
@@ -108,6 +140,9 @@ public class PlayerMovement : MonoBehaviour
         {
             //Remove one life
             GameManager.SubtractLife();
+
+            //Player hurt sound
+            audioSrc3.Play();
 
             //Bounce back player - from pinball Bumper.cs
             Vector2 myCenter = transform.position;
@@ -135,6 +170,8 @@ public class PlayerMovement : MonoBehaviour
             GameManager.Score += 100;
             Debug.Log($"Killed Enemy! Score is now {GameManager.Score}");
 
+            //Player Stomp Sound
+            audioSrc2.Play();
             //Destroy the enemy
             Destroy(collision.gameObject);
 
